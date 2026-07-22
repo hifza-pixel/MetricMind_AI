@@ -12,7 +12,7 @@ const chats = [
 
 export default function ChatSidebar() {
   return (
-    <div className="w-72 bg-slate-950 text-white flex flex-col border-r border-slate-800">
+    <div className="w-72 h-full bg-slate-950 text-white flex flex-col border-r border-slate-800">
 
       {/* Header */}
       <div className="p-5 border-b border-slate-800">

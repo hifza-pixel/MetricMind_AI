@@ -10,7 +10,7 @@ DashboardLayout({
     children,
 } :DashboardLayoutProps){
     return ( 
-        <div className="flex h-screen bg-slate-100 dark: bg-slate-900">
+        <div className="flex h-screen bg-slate-100 dark:bg-slate-900">
             <Sidebar/>
             <div className="flex flex-1 flex-col overflow-hidden">
                 <Navbar/>

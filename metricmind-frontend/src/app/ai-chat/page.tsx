@@ -27,7 +27,7 @@ export default function AIChatPage() {
 
   <ChatSidebar />
 
-  <div className="flex-1 flex flex-col"></div>
+  <div className="flex-1 flex flex-col">
 
           {/* Chat Area */}
           <div className="flex-1 overflow-y-auto p-6">
@@ -50,13 +50,9 @@ export default function AIChatPage() {
 </div>
 
           {/* Chat Input Placeholder */}
-          <div className="border-t border-slate-200 dark:border-slate-700 p-4">
-  <div className="rounded-xl border border-slate-300 dark:border-slate-600 p-3 text-gray-400">
-    Ask MetricMind AI anything...
-  </div>
-</div>
+       
 <ChatInput />
-
+</div>
         </div>
 
       </div>
