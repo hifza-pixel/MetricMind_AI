@@ -1,42 +1,46 @@
 "use client";
-import {
-  Bell,
-  Search,
-  Sun,
-  UserCircle,
-} from "lucide-react";
+import { Bell, Moon, Sun, Settings, User } from "lucide-react";
+import { useState } from "react";
 export default function Navbar() {
+  const [darkMode, setDarkMode] = useState(false);
+  const toggleTheme = () => {
+    document.documentElement.classList.toggle("dark");
+    setDarkMode(!darkMode);
+  };
   return (
-    <header className="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between px-6 shadow-sm">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-800 dark:text-white">
-          Executive Dashboard
-        </h1>
-        <p className="text-sm text-slate-500">
-          Welcome back, Hifza 👋
-        </p>
-      </div>
+    <header className="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 px-6 flex items-center justify-between">
+      <h1 className="text-xl font-bold text-slate-800 dark:text-white">
+        MetricMind AI
+      </h1>
       <div className="flex items-center gap-4">
-        <div className="hidden md:flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-2">
-          <Search className="w-4 h-4 text-gray-500" />
-          <input
-            type="text"
-            placeholder="Search..."
-            className="bg-transparent outline-none px-2 text-sm"
-          />
-        </div>
-        <button className="relative p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
-          <Bell className="w-5 h-5" />
-          <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+        {/* Theme Toggle */}
+        <button
+          onClick={toggleTheme}
+          className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+        >
+          {darkMode ? <Sun size={20} /> : <Moon size={20} />}
         </button>
-        <button className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
-          <Sun className="w-5 h-5" />
+        {/* Notification */}
+        <button className="relative p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+          <Bell size={20} />
+          <span className="absolute -top-1 -right-1 h-2 w-2 bg-red-500 rounded-full"></span>
         </button>
+        {/* Settings */}
+        <button className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+          <Settings size={20} />
+        </button>
+        {/* User Profile */}
         <div className="flex items-center gap-2 cursor-pointer">
-          <UserCircle className="w-9 h-9 text-blue-600" />
+          <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white">
+            <User size={18} />
+          </div>
           <div className="hidden md:block">
-            <p className="text-sm font-semibold">Hifza Tanveer</p>
-            <p className="text-xs text-gray-500">Frontend Developer</p>
+            <p className="font-medium text-sm dark:text-white">
+              Hifza Tanveer
+            </p>
+            <p className="text-xs text-gray-500">
+              Data Analyst
+            </p>
           </div>
         </div>
       </div>
