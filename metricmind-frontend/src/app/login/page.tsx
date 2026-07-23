@@ -34,7 +34,7 @@ export default function LoginPage() {
     }, 1500);
   };
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 via-indigo-600 to-slate-900 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-linear-to-br from-blue-600 via-indigo-600 to-slate-900 flex items-center justify-center px-4">
       <div className="grid lg:grid-cols-2 bg-white/10 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl w-full max-w-6xl">
         {/* Left Side */}
         <div className="hidden lg:flex flex-col justify-center p-12 text-white">
