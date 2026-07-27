@@ -1,7 +1,10 @@
 "use client";
-import { Bell, Moon, Sun, Settings, User } from "lucide-react";
+import { Bell, Moon, Sun, Settings, User, Menu, Search} from "lucide-react";
 import { useState } from "react";
-export default function Navbar() {
+interface NavbarProps {
+  onMenuClick: () => void;
+}
+export default function Navbar({ onMenuClick}:NavbarProps) {
   const [darkMode, setDarkMode] = useState(false);
   const toggleTheme = () => {
     document.documentElement.classList.toggle("dark");
@@ -9,9 +12,14 @@ export default function Navbar() {
   };
   return (
     <header className="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 px-6 flex items-center justify-between">
+      <div className="flex items-center">
+        <button className="lg:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" onClick={onMenuClick}>
+          <Menu size={22}/>
+        </button>
       <h1 className="text-xl font-bold text-slate-800 dark:text-white">
         MetricMind AI
       </h1>
+      </div>
       <div className="flex items-center gap-4">
         {/* Theme Toggle */}
         <button
@@ -20,6 +28,10 @@ export default function Navbar() {
         >
           {darkMode ? <Sun size={20} /> : <Moon size={20} />}
         </button>
+        <div className="hidden md:flex items-center border rounded-xl px-3 py-2 bg-slate-50 dark:bg-slate-800">
+          <Search size={18} className="text-gray-400" />
+          <input type="text" placeholder="Search..." className="bg-transparent outline-none ml-2 w-48" />
+        </div>
         {/* Notification */}
         <button className="relative p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">
           <Bell size={20} />

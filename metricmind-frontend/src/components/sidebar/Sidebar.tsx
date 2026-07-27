@@ -19,6 +19,7 @@ const menuItems = [
   { name: "AI Chat", href: "/ai-chat", icon: MessageSquare },
   { name: "Reports", href: "/reports", icon: FileText },
   { name: "Settings", href: "/settings", icon: Settings },
+  {name: "Profile", href:"/profile", icon:Users},
 ];
 export default function Sidebar() {
   return (
