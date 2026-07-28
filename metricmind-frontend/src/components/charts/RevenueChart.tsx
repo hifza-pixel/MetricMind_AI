@@ -9,10 +9,15 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+interface RevenueData{
+  month: string;
+  revenue: number;
+}
 
-import { revenueData } from "../../lib/chartData";
-
-export default function RevenueChart() {
+interface Props{
+  data:RevenueData[];
+}
+export default function RevenueChart({data}:Props) {
   return (
     <div className="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-md">
       <h2 className="text-lg font-semibold mb-4">
@@ -20,7 +25,7 @@ export default function RevenueChart() {
       </h2>
 
       <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={revenueData}>
+        <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="month" />
           <YAxis />
