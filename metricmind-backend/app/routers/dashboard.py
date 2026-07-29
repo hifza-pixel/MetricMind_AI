@@ -1,31 +1,43 @@
-from fastapi import APIRouter
+from fastapi import APIRouter,Depends
+from sqlalchemy.orm import Session
+from app.database import get_db
+from app.models.dashboard import DashboardMetrics
+from app.models.revenue import Revenue
+from app.models.region import Region
 router = APIRouter(
     prefix="/dashboard",
     tags=["Dashboard"]
 )
 @router.get("/kpis")
-def get_kpis():
-    return {
-        "revenue": 1280000,
-        "profits": 340000,
-        "orders": 2356,
-        "customers": 1240
-    }
+def get_kpis(db:Session= Depends(get_db)):
+   data= db.query(DashboardMetrics).first()
+   if not data:
+       return{
+           "message":"No dashboard data found"
+       }
+   return{
+       "revenue": data.revenue,
+       "profits": data.profit,
+       "orders":data.orders,
+       "customers":data.customers
+   }
 @router.get("/revenue")
-def get_revenue():
-    return [
-        {"month": "Jan", "revenue": 4200},
-        {"month": "Feb", "revenue": 3900},
-        {"month": "Mar", "revenue": 5100},
-        {"month": "Apr", "revenue": 4800},
-        {"month": "May", "revenue": 6200},
-        {"month": "Jun", "revenue": 7000},
+def get_revenue(db:Session=Depends(get_db)):
+    revenue= db.query(Revenue).all()
+    return[
+        {
+            "month":item.month,
+            "revenue":item.revenue
+        }
+        for item in revenue
     ]
 @router.get("/regions")
-def get_regions():
-    return [
-        {"name": "North", "value": 35},
-        {"name": "South", "value": 25},
-        {"name": "East", "value": 20},
-        {"name": "West", "value": 20}
+def get_regions(db:Session =Depends(get_db)):
+    regions= db.query(Region).all()
+    return[
+        {
+            "name":item.name,
+            "value":item.value
+        }
+        for item in regions
     ]

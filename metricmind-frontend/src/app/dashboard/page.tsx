@@ -13,7 +13,16 @@ import AIRecommendations from "../../components/dashboard/AIRecommendations";
 import AISalesPredictionChart from "../../components/dashboard/AISalesPredictionChart";
 import AIAnalyticsPanel from "../../components/dashboard/AIAnalyticsPanel";
 import AIReportCenter from "../../components/dashboard/AIReportCenter";
+import { useRouter } from "next/navigation";
 export default function DashboardPage() {
+  const router = useRouter();
+  useEffect(() => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    router.push("/login");
+  }
+}, [router]);
   interface kpis{
     revenue: number;
     profit: number;

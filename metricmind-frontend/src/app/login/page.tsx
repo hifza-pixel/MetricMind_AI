@@ -3,8 +3,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {Mail,Lock,Eye,EyeOff,} from "lucide-react";
-
+import { useRouter } from "next/navigation";
+import {login} from "../../services/authService";
 export default function LoginPage() {
+  const router =useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -12,27 +14,46 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const handleLogin = () => {
-    setError("");
-    setSuccess("");
-    if (!email || !password) {
-      setError("Please fill in all fields.");
-      return;
+  const handleLogin = async () => {
+  setError("");
+  setSuccess("");
+
+  if (!email || !password) {
+    setError("Please fill in all fields.");
+    return;
+  }
+
+  if (!email.includes("@")) {
+    setError("Please enter a valid email.");
+    return;
+  }
+
+  if (password.length < 6) {
+    setError("Password must be at least 6 characters.");
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    const result = await login(email, password);
+
+    if (result.success) {
+      localStorage.setItem("token", result.access_token);
+
+      setSuccess("Login Successful!");
+
+      router.push("/dashboard");
+    } else {
+      setError(result.message);
     }
-    if (!email.includes("@")) {
-      setError("Please enter a valid email address.");
-      return;
-    }
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters.");
-      return;
-    }
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSuccess("Login successful! Redirecting...");
-    }, 1500);
-  };
+  } catch (error) {
+    console.error(error);
+    setError("Login failed. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <div className="min-h-screen bg-linear-to-br from-blue-600 via-indigo-600 to-slate-900 flex items-center justify-center px-4">
       <div className="grid lg:grid-cols-2 bg-white/10 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl w-full max-w-6xl">

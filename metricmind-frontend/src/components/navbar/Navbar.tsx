@@ -1,11 +1,17 @@
 "use client";
 import { Bell, Moon, Sun, Settings, User, Menu, Search} from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 interface NavbarProps {
   onMenuClick: () => void;
 }
 export default function Navbar({ onMenuClick}:NavbarProps) {
   const [darkMode, setDarkMode] = useState(false);
+  const router= useRouter();
+  const logout =() => {
+    localStorage.removeItem("token");
+    router.push("/login");
+  }
   const toggleTheme = () => {
     document.documentElement.classList.toggle("dark");
     setDarkMode(!darkMode);
@@ -42,7 +48,7 @@ export default function Navbar({ onMenuClick}:NavbarProps) {
           <Settings size={20} />
         </button>
         {/* User Profile */}
-        <div className="flex items-center gap-2 cursor-pointer">
+        <div className="flex items-center gap-2 ">
           <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white">
             <User size={18} />
           </div>
@@ -54,6 +60,9 @@ export default function Navbar({ onMenuClick}:NavbarProps) {
               Data Analyst
             </p>
           </div>
+          <button onClick={logout} className="ml-3 px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600">
+            Logout
+          </button>
         </div>
       </div>
     </header>
