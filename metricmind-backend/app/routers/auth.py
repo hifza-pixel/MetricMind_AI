@@ -13,7 +13,7 @@ def login(data: LoginRequest):
                     "sub": data.email
                }
           )
-          return {"sucess": True,
+          return {"success": True,
             "access_token": token,
             "token_type": "bearer"
         }
