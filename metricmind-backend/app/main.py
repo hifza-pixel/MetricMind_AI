@@ -4,6 +4,7 @@ from app.database import Base, engine
 from app import models
 from fastapi.responses import JSONResponse
 from fastapi import Request
+from app.routers import ai
 
 app=FastAPI(
     title="MetricMind AI API",
@@ -15,6 +16,7 @@ Base.metadata.create_all(bind=engine)
 app.include_router(auth.router)
 app.include_router(dashboard.router)
 app.include_router(reports.router)
+app.include_router(ai.router)
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
     return JSONResponse(

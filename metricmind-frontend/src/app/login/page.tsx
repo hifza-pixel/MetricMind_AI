@@ -39,7 +39,7 @@ export default function LoginPage() {
     const result = await login(email, password);
     console.log(result);
     if (result.success) {
-      localStorage.setItem("token","dummy-token");
+      localStorage.setItem("token","result.access_token");
 
       setSuccess("Login Successful!");
 

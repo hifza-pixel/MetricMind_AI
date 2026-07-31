@@ -51,6 +51,12 @@ export default function DashboardPage() {
         }
       };
       fetchDashboard();
+      const interval = setInterval(()=>
+     {
+      fetchDashboard();
+     },30000);
+     return ()=>
+      clearInterval(interval);
      } , []);
      if (loading){
       return(

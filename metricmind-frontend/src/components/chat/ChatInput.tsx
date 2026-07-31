@@ -1,12 +1,28 @@
 "use client";
 
 import { Send, Paperclip, Smile, Mic } from "lucide-react";
-
+import { useState } from "react";
+import { sendMessage } from "../../services/aiServices";
 interface ChatInputProps {
-  onSend?: () => void;
+  onSend?: (message: string, reply: string) => void;
 }
 
 export default function ChatInput({ onSend }: ChatInputProps) {
+  const [message, setMessage] = useState("");
+const [loading, setLoading] = useState(false);
+const handleSend = async () => {
+  if (!message.trim()) return;
+  try {
+    setLoading(true);
+    const result = await sendMessage(message);
+    onSend?.(message, result.reply);
+    setMessage("");
+  } catch (error) {
+    console.error("Error:", error);
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <div className="border-t border-slate-200 dark:border-slate-700 p-4 bg-white dark:bg-slate-900">
 
@@ -17,12 +33,18 @@ export default function ChatInput({ onSend }: ChatInputProps) {
           <Paperclip size={20} />
         </button>
 
-        {/* Input */}
         <input
-          type="text"
-          placeholder="Ask MetricMind AI anything..."
-          className="flex-1 bg-transparent outline-none text-sm"
-        />
+  type="text"
+  placeholder="Ask MetricMind AI anything..."
+  value={message}
+  onChange={(e) => setMessage(e.target.value)}
+  onKeyDown={(e) => {
+    if (e.key === "Enter") {
+      handleSend();
+    }
+  }}
+  className="flex-1 bg-transparent outline-none text-sm"
+/>
 
         {/* Emoji */}
         <button className="text-slate-500 hover:text-yellow-500 transition">
@@ -36,10 +58,10 @@ export default function ChatInput({ onSend }: ChatInputProps) {
 
         {/* Send */}
         <button
-          onClick={onSend}
+          onClick={handleSend}
           className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-xl transition"
         >
-          <Send size={18} />
+         {loading ? "..." : <Send size={18} />}
         </button>
 
       </div>
