@@ -17,7 +17,7 @@ def get_kpis(db:Session= Depends(get_db)):
        }
    return{
        "revenue": data.revenue,
-       "profits": data.profit,
+       "profit": data.profit,
        "orders":data.orders,
        "customers":data.customers
    }

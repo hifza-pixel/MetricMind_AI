@@ -32,7 +32,7 @@ export default function AIResponseCard() {
 <AIKPI />
 
 <div className="mt-6">
-  <RevenueChart />
+  <RevenueChart data={[]}/>
 </div>
 
 <div className="mt-6 rounded-xl bg-blue-50 dark:bg-slate-800 p-4">

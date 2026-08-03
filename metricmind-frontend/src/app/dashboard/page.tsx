@@ -79,10 +79,10 @@ export default function DashboardPage() {
         <DashboardHeader/>
         {/* KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-          <KPICard title="Revenue" value={`₹${kpis?.revenue.toLocaleString()}`}change="+12%" positive={true}/>
-          <KPICard title="Profit" value={`₹${kpis?.profit.toLocaleString()}`}change="+8%" positive={true} />
-          <KPICard title="Orders" value={`₹${kpis?.orders.toLocaleString()}`}change="+15%" positive={true} />
-          <KPICard title="Customers" value={`₹${kpis?.customers.toLocaleString()}`}change="+6%" positive={true} />
+          <KPICard title="Revenue" value={`₹${kpis?.revenue.toLocaleString() ?? "0"}`}change="+12%" positive={true}/>
+          <KPICard title="Profit" value={`₹${kpis?.profit.toLocaleString() ?? "0"}`}change="+8%" positive={true} />
+          <KPICard title="Orders" value={`₹${kpis?.orders.toLocaleString() ?? "0"}`}change="+15%" positive={true} />
+          <KPICard title="Customers" value={`₹${kpis?.customers.toLocaleString() ?? "0"}`}change="+6%" positive={true} />
           </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
         <AIForecastCard/>
