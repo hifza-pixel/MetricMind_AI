@@ -6,6 +6,7 @@ from fastapi.responses import JSONResponse
 from fastapi import Request
 from app.routers import ai
 from fastapi.middleware.cors import CORSMiddleware
+import traceback
 app=FastAPI(
     title="MetricMind AI API",
     version="1.0.0",
@@ -28,11 +29,12 @@ app.include_router(reports.router)
 app.include_router(ai.router)
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
+    traceback.print_exc()   # Terminal me actual error print karega
     return JSONResponse(
         status_code=500,
         content={
             "success": False,
-            "message": "Internal Server Error"
+            "message": str(exc)   # Temporary debugging
         }
     )
 @app.get("/")

@@ -4,25 +4,27 @@ from app.database import get_db
 from app.models.dashboard import DashboardMetrics
 from app.models.revenue import Revenue
 from app.models.region import Region
-from app.semantic.semantic_service import get_metric
+from app.services.dashboard_service import get_dashboard_metrics
 router = APIRouter(
     prefix="/dashboard",
     tags=["Dashboard"]
 )
 @router.get("/kpis")
 def get_kpis(db:Session= Depends(get_db)):
-   revenue_metrics= get_metric("revenue")
-   print(revenue_metrics)
-   data= db.query(DashboardMetrics).first()
+   result=get_dashboard_metrics(db)
+   data=result["dashboard"]
+   semantic=result["semantic"]
    if not data:
        return{
            "message":"No dashboard data found"
        }
    return{
+       "dashboard":{
        "revenue": data.revenue,
        "profit": data.profit,
        "orders":data.orders,
-       "customers":data.customers
+       "customers":data.customers,},
+       "semantic": semantic
    }
 @router.get("/revenue")
 def get_revenue(db:Session=Depends(get_db)):

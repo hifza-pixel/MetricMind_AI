@@ -15,4 +15,4 @@ def build_query(metric :str ,dimension: str= None):
         if dimension not in DIMENSIONS:
             raise ValueError(f"Dimension '{dimension}' not found")
         query["dimension"]= DIMENSIONS[dimension]  
-        return query
+    return query

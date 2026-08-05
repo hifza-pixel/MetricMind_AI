@@ -1,18 +1,17 @@
 METRICS ={
-    "revenue": {
-        "table": "sales",
-        "column": "sale_amount",
-        "aggregation": "SUM"
+    "revenue":{
+        "table":"Revenue",
+        "column":"revenue",
+        "aggregation":"SUM"
     },
-    "profit": {
-        "formula": "revenue - cost"
+    "orders":{
+        "table":"Revenue",
+        "column":"id",
+        "aggregation":"COUNT"
     },
-    "orders": {
-        "table": "orders",
-        "aggregation": "COUNT"
-    },
-    "customers": {
-        "table": "customers",
-        "aggregation": "COUNT"
+    "customers":{
+        "table":"DashboardMetrics",
+        "column":"customer",
+        "aggregation":"SUM"
     }
 }
