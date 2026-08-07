@@ -6,7 +6,7 @@ import { Bot, User, Copy, ThumbsUp, ThumbsDown } from "lucide-react";
 interface ChatMessageProps {
   sender: "user" | "ai";
   message: string;
-  time: string;
+  time?: string;
 }
 
 export default function ChatMessage({

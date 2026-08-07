@@ -1,16 +1,23 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Plus, MessageSquare } from "lucide-react";
+import { getSessions } from "../../services/aiServices";
 
-const chats = [
-  "Revenue Analysis",
-  "Sales Forecast",
-  "Top Customers",
-  "Monthly Profit",
-  "Regional Performance",
-];
+interface ChatSidebarProps {
+  onSelectSession: (id: string) => void;
+}
 
-export default function ChatSidebar() {
+export default function ChatSidebar({
+  onSelectSession,
+}: ChatSidebarProps) {
+
+  const [sessions, setSessions] = useState<string[]>([]);
+
+  useEffect(() => {
+    getSessions().then(setSessions);
+  }, []);
+
   return (
     <div className="w-72 h-full bg-slate-950 text-white flex flex-col border-r border-slate-800">
 
@@ -28,13 +35,14 @@ export default function ChatSidebar() {
           Recent Chats
         </h2>
 
-        {chats.map((chat, index) => (
+        {sessions.map((session) => (
           <button
-            key={index}
+            key={session}
+            onClick={() => onSelectSession(session)}
             className="w-full flex items-center gap-3 text-left p-3 rounded-xl hover:bg-slate-800 transition mb-2"
           >
             <MessageSquare size={18} />
-            <span className="truncate">{chat}</span>
+            <span className="truncate">{session}</span>
           </button>
         ))}
       </div>
